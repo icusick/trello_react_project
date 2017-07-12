@@ -7,6 +7,7 @@ class Card extends React.Component {
 
 		this.state = {
 			isComplete: false
+            // isArchived: false
 		};
 	}
 
@@ -15,7 +16,10 @@ class Card extends React.Component {
         if (!this.state.isComplete){
             completeButton = <button className="complete-card" onClick={this._handleClick.bind(this)}>></button>
         }
-		return(
+		// if (!this.state.isArchived){
+
+  //       }
+        return(
 			 <div className="card">
                 <div className="title">{this.props.title}</div>
                 <div className="description">{this.props.description}</div>
@@ -29,9 +33,14 @@ class Card extends React.Component {
 	}
     _handleClick() {
         this.setState({
-            isComplete: !this.state.showComments
+            isComplete: !this.state.isComplete
         });
     }
+    // _archiveCard() {
+    //     this.setState({
+    //         isArchived: !this.state.
+    //     });
+    // }
 }
 
 /* Column Component */
