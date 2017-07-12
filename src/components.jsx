@@ -6,8 +6,8 @@ class Card extends React.Component {
 		super();
 
 		this.state = {
-			isComplete: false
-            // isArchived: false
+			isComplete: false,
+            isArchived: false
 		};
 	}
 
@@ -16,17 +16,20 @@ class Card extends React.Component {
         if (!this.state.isComplete){
             completeButton = <button className="complete-card" onClick={this._handleClick.bind(this)}>></button>
         }
-		// if (!this.state.isArchived){
-
-  //       }
+		let unarchivedCard;
+        if (!this.state.isArchived){
+            unarchivedCard = <div>
+                             <div className="title">{this.props.title}</div>
+                             <div className="description">{this.props.description}</div>
+                             <div className="actions">
+                                <button className="delete-card" onClick={this._archiveCard.bind(this)}>X</button>
+                                {completeButton}
+                             </div>
+                             </div>
+        }
         return(
 			 <div className="card">
-                <div className="title">{this.props.title}</div>
-                <div className="description">{this.props.description}</div>
-                <div className="actions">
-                    <button className="delete-card">X</button>
-                    {completeButton}
-                </div>
+                {unarchivedCard}
              </div>
 
 		);
@@ -36,11 +39,12 @@ class Card extends React.Component {
             isComplete: !this.state.isComplete
         });
     }
-    // _archiveCard() {
-    //     this.setState({
-    //         isArchived: !this.state.
-    //     });
-    // }
+    _archiveCard() {
+        this.setState({
+            isArchived: !this.state.isArchived
+        });
+        console.log("clicked");
+    }
 }
 
 /* Column Component */
