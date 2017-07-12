@@ -2,19 +2,36 @@ import React from 'react';
 
 /* Define Card Component Here*/
 class Card extends React.Component {
+	constructor() {
+		super();
+
+		this.state = {
+			isComplete: false
+		};
+	}
+
 	render() {
+        let completeButton;
+        if (!this.state.isComplete){
+            completeButton = <button className="complete-card" onClick={this._handleClick.bind(this)}>></button>
+        }
 		return(
 			 <div className="card">
                 <div className="title">{this.props.title}</div>
                 <div className="description">{this.props.description}</div>
                 <div className="actions">
                     <button className="delete-card">X</button>
-                    <button className="complete-card">></button>
+                    {completeButton}
                 </div>
              </div>
 
 		);
 	}
+    _handleClick() {
+        this.setState({
+            isComplete: !this.state.showComments
+        });
+    }
 }
 
 /* Column Component */
@@ -73,10 +90,18 @@ class MainComponent extends React.Component {
 	render() {
 		return (
 			<div id="app">
-			<CardForm />
+			<CardForm addCard={this._addCard.bind(this)}/>
 			<CardColumn />
 			</div>
 			)
+	}
+	_addCard(title, description) {
+		const card = {
+			id: this.state.cards.length + 1, 
+			title,
+			description 
+		};
+		this.setState({ cards: this.state.cards.concat([card])});
 	}
 }
 
